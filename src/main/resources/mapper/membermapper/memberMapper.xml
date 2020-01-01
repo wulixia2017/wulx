@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagoda.demo.dao.MemberDao">
+    <resultMap type="com.pagoda.demo.entity.Member" id="memberMap">
+        <id property="id" column="id" />
+        <result property="nickName" column="nickName" />
+    </resultMap>
+
+    <!-- 根据顾客openid查询可用的表单id -->
+    <select id="getMember" parameterType="int" resultType="com.pagoda.demo.entity.Member">
+        select * from Member
+        where id = #{id}
+    </select>
+
+</mapper>

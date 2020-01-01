@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.pagoda.platform</groupId>
+        <artifactId>jms-parent</artifactId>
+        <version>2.1.0</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.pagoda.demo</groupId>
+    <artifactId>ms-demo</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description></description>
+    <name>ms-demo</name>
+    <properties>
+        <!--是否跳过，项目打包时是否把git commit信息打包到结果中,方便线上排查包的代码版本-->
+        <git-commit-id.skip>true</git-commit-id.skip>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pagoda.platform</groupId>
+            <artifactId>framework-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pagoda.platform</groupId>
+                    <artifactId>dubbo-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.curator</groupId>
+                    <artifactId>curator-framework</artifactId>
+                </exclusion>
+                
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.pagoda.platform</groupId>
+            <artifactId>framework-starter-mts</artifactId>
+            
+        </dependency>
+        <!--datasource-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
+        </dependency>
+        <!--datasource-->
+        
+<!---->
+<dependency>
+    <groupId>com.pagoda.platform</groupId>
+    <artifactId>framework-starter-mts</artifactId>
+</dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <package.environment>default,local</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>default,dev</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>default,test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>staging</id>
+            <properties>
+                <package.environment>default,staging</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <package.environment>default,production</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
+    <repositories>
+        <repository>
+            <id>dev-nexus</id>
+            <name>nexus</name>
+            <url>http://maven.dev.pagoda.com.cn:10008/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.pagoda.platform</groupId>
+                <artifactId>pagoda-codegen-maven-plugin</artifactId>
+                <version>2.1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <multiModule>false</multiModule>
+                    <!--要生成的表名, * 表示全部表, 多个表名使用,分隔-->
+                    <generateTables>*</generateTables>
+                    <!--是否生成controller-->
+                    <controller>true</controller>
+                    <!--实体类开启swagger注解-->
+                    <swagger2>true</swagger2>
+                    <!--  数据库地址 -->
+                    <dbUrl><![CDATA[jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false]]></dbUrl>
+                    <!--  用户名 -->
+                    <dbUser>root</dbUser>
+                    <!--  密码 -->
+                    <dbPass>root</dbPass>
+                    <!--  代码包名，生成的实体会在此包名下的entity目录，配置的包名不包括entity -->
+                    <modelPackage>com.pagoda.demo</modelPackage>
+                    <!--  代码的输出目录 -->
+                    <outputDirectory>src/main/java</outputDirectory>
+                    <!--  指定id生成器，db为数据库默认 id 自增,redis为使用redis生成全局id -->
+                    <idGenerator>db</idGenerator>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
+</project>

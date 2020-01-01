@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: ms-demo
+  profiles:
+    active: @package.environment@
+  datasource:
+    druid:
+      keep-alive: true
+      max-active: 200
+      max-idle: 6
+      min-idle: 2
+      initial-size: 2
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/wulx?characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: root
+server:
+  port: 8080
+#mybatis 配置信息
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  enableHotSwap: true
+mybatis-plus:
+  # 指定entity的父类, 表示entity必须实现这个接口
+  type-aliases-super-type: com.pagoda.platform.dto.BaseEntity
+  type-aliases-package: com.pagoda.demo.entity
+  configuration:
+    # 实体属性和数据库表字段映射是否使用驼峰转下换线，如果不需要就把这个属性设置为false
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    # 开启mybatis sql日志打印
+    com.pagoda.demo.dao: debug
+#insert
+#==============dm web 配置=======================
+pagoda:
+  web:
+    # 请求日志拦截器org.springframework.web.filter.CommonsRequestLoggingFilter配置
+    request-logging:
+      enabled: true
+      # 日志是否包含http请求body
+      include-payload: true
+      include-query-string: true
+      include-client-info: true
+      include-headers: true
+      max-payload-length: 10000
+    swagger:
+      base-packages: com.pagoda.demo
+      # 是否启用swagger文档
+      enabled: true
+      api-info:
+        title: ms-demo
+        version: 1.0.0
+        description: 

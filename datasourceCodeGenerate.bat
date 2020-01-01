@@ -1,0 +1,1 @@
+mvn pagoda-codegen:generate  &&  mvn com.marvinformatics.formatter:formatter-maven-plugin:2.2.0:format && cd ms-service &&  mvn com.marvinformatics.formatter:formatter-maven-plugin:2.2.0:format
