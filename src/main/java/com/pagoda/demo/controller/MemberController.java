@@ -16,8 +16,7 @@ public class MemberController {
 
     @ResponseBody
     @RequestMapping(value = "getMember",method = RequestMethod.GET)
-    public String getMember(@RequestParam int id){
-//        return ApiResult.success(memberService.getMember(id));
-        return JSON.toJSONString(memberService.getMember(id));
+    public ApiResult getMember(@RequestParam int id){
+        return ApiResult.success(memberService.getMember(id));
     }
 }

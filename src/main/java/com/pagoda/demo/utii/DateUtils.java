@@ -11,10 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * @author Xxx
- * 实现描述：时间操作工具类
- * @version v1.0.0
- * @since 13-8-12上午10:37
+ * 时间工具
  */
 public class DateUtils {
     public final static String DATE_CHINESE_PATTERN = "yyyy年MM月dd日";

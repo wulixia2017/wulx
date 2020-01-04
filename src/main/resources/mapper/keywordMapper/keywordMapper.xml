@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagoda.demo.dao.KeywordrecordDao">
+
+    <!-- 根据顾客openid查询可用的表单id -->
+    <select id="findKeyWordList" parameterType="com.pagoda.demo.entity.Keywordrecord" resultType="com.pagoda.demo.entity.Keywordrecord">
+        select * from keywordrecord
+        where keyrecord LIKE '%${keyrecord}%'
+    </select>
+
+</mapper>

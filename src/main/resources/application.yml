@@ -24,6 +24,10 @@ spring:
       url: jdbc:mysql://localhost:3306/wulx?characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: root
+  redis:
+    host: 127.0.0.1
+#    password: 123456
+    port: 6379
 server:
   port: 8080
 #mybatis 配置信息
@@ -43,6 +47,11 @@ logging:
     com.pagoda.demo.dao: debug
 #insert
 #==============dm web 配置=======================
+
+# 是否启用swagger文档
+swagger:
+  enabled: true
+
 pagoda:
   web:
     # 请求日志拦截器org.springframework.web.filter.CommonsRequestLoggingFilter配置
