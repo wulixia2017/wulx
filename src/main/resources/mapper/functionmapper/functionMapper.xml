@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagoda.demo.dao.FunctionDao">
+
+    <select id="findFunctionList" parameterType="com.pagoda.demo.dto.input.FunctionInput" resultType="com.pagoda.demo.entity.Function">
+        select * from function
+        where 1 = 1
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="title != null">
+            AND title LIKE '%${title}%'
+        </if>
+        <if test="keyWordRecord != null">
+            AND title regexp #{keyWordRecord}
+        </if>
+        <if test="level != null">
+            AND level = #{level}
+        </if>
+        <if test="parentId != null">
+            AND parentId = #{parentId}
+        </if>
+        <if test="keywordList != null and keywordList.size() > 0">
+            AND keyword in
+            <foreach item="item" index="index" collection="keywordList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
+</mapper>
