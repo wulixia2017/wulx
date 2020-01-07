@@ -18,7 +18,7 @@ git push;
 修改完之后按esc键退出编辑状态，再按大写ZZ就可以保存退出vim编辑器。vim操作符中说的 qw 可以保存并退出 根本没用 
 
 reset命令：直接删除上次提交，使用reset命令
-git -reset --hard HEAD^;
+git reset --hard HEAD^;
 git push origin master -f
 HEAD是指向最新的提交，上一次提交是HEAD^,上上次是HEAD^^,也可以写成HEAD～2 ,依次类推。
 
