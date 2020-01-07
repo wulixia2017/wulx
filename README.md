@@ -6,3 +6,5 @@
 在pom.xml文件中配置数据库连接信息
 
 集成了 redis，lambda表达式的学习
+
+测试git 撤销命令
