@@ -25,3 +25,4 @@ HEAD是指向最新的提交，上一次提交是HEAD^,上上次是HEAD^^,也可
 删除上次提价还可以使用revert命令
 git revert HEAD
 git push origin master
+
