@@ -5,7 +5,7 @@
 其他系统可以把文件的内容放到命令行执行  
 在pom.xml文件中配置数据库连接信息
 
-集成了 redis，lambda表达式的学习
+集成了 redis,redis初始化，lambda表达式的学习
 
 git 命令：
 git add 文件;

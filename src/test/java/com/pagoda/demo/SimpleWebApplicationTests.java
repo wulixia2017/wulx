@@ -3,12 +3,15 @@ package com.pagoda.demo;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
+import com.pagoda.demo.utii.RedisConfigurtion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -22,8 +25,20 @@ import java.util.stream.Collectors;
 public class SimpleWebApplicationTests {
 
     @Autowired
+    @Qualifier("initRedisTemplate")
     private RedisTemplate redisTemplate;
 
+
+    @Test
+    public void test0() {
+        System.out.println(redisTemplate.getStringSerializer());
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        valueOperations.set("cn:con:test","aa");
+    }
+
+    /**
+     * redis存储集合
+     */
     @Test
     public void test() {
         List<String> list = Lists.newArrayList();
@@ -32,16 +47,16 @@ public class SimpleWebApplicationTests {
         list.add("cc");
         list.add("dd");
         list.add("ee");
-        redisTemplate.delete("con");
+        redisTemplate.delete("com");
         ListOperations operations = redisTemplate.opsForList();
         list.forEach(n -> {
             long length = operations.size("con");
-            operations.leftPush("con",n);
+            operations.leftPush("com",n);
             if (length > 3){
-                operations.rightPop("con");
+                operations.rightPop("com");
             }
         });
-        System.out.println(operations.range("con",0,-1));
+        System.out.println(operations.range("com",0,-1));
     }
 
     /**
