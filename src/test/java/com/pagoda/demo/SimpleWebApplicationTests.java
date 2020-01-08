@@ -4,19 +4,19 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
 import com.pagoda.demo.utii.RedisConfigurtion;
+import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -31,9 +31,27 @@ public class SimpleWebApplicationTests {
 
     @Test
     public void test0() {
-        System.out.println(redisTemplate.getStringSerializer());
+        //String类型
         ValueOperations valueOperations = redisTemplate.opsForValue();
-        valueOperations.set("cn:con:test","aa");
+        valueOperations.set("String:test","aa");
+        //hash
+        HashOperations hashOperations = redisTemplate.opsForHash();
+        hashOperations.hasKey("hash:test","hash");
+        //sets
+        Set<String> stringSet = Sets.newHashSet();
+        stringSet.add("bb");
+        stringSet.add("cc");
+        stringSet.add("aa");
+        SetOperations setOperations = redisTemplate.opsForSet();
+        setOperations.add("sets:test",stringSet);
+        //list
+        //sorted sets
+        ZSetOperations zSetOperations = redisTemplate.opsForZSet();
+        long i = 0;
+        for (String str : stringSet){
+            zSetOperations.add("zsets:test", str, i++);
+        }
+        System.out.println(zSetOperations.range("zsets:test",0,-1));
     }
 
     /**
@@ -50,7 +68,7 @@ public class SimpleWebApplicationTests {
         redisTemplate.delete("com");
         ListOperations operations = redisTemplate.opsForList();
         list.forEach(n -> {
-            long length = operations.size("con");
+            long length = operations.size("com");
             operations.leftPush("com",n);
             if (length > 3){
                 operations.rightPop("com");
