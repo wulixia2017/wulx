@@ -25,7 +25,7 @@ HEAD是指向最新的提交，上一次提交是HEAD^,上上次是HEAD^^,也可
 git merge branch 合并branch分支代码到当前分支
 git checkout branch 切换分支
 
-删除上次提价还可以使用revert命令
+删除上次提交还可以使用revert命令
 git revert HEAD
 git push origin master
 
