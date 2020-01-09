@@ -28,3 +28,5 @@ git push origin master
 
 注解使用，多线程，线程池的应用
 
+静态代理，jdk动态代理，cglib动态代理区别与实现
+

@@ -5,8 +5,9 @@ import com.google.common.collect.Lists;
 import com.pagoda.demo.dto.input.FunctionInput;
 import com.pagoda.demo.entity.Function;
 import com.pagoda.demo.entity.Keywordrecord;
-import com.pagoda.demo.service.IFunctionService;
 import com.pagoda.demo.service.IKeywordrecordService;
+import com.pagoda.demo.proxy.FunctionProxy;
+import com.pagoda.demo.service.Impl.FunctionServiceImpl;
 import com.pagoda.demo.utii.ConstantUtil;
 import com.pagoda.demo.utii.RedisUtil;
 import com.pagoda.platform.service.ApiResult;
@@ -31,7 +32,7 @@ public class FunctionController {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    private IFunctionService functionService;
+    private FunctionServiceImpl functionService;
 
     @Autowired
     private IKeywordrecordService keyWordService;
@@ -89,6 +90,15 @@ public class FunctionController {
         FunctionInput functionInput = new FunctionInput();
         functionInput.setParentId(parentId);
         return ApiResult.success(functionService.findFunctionList(functionInput));
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "functionProxy",method = RequestMethod.GET)
+    public ApiResult functionProxy(){
+        FunctionInput functionInput = new FunctionInput();
+        List<Function> functionList = new FunctionProxy(functionService).findFunctionList(functionInput);
+        return ApiResult.success(functionList);
     }
 
 }
