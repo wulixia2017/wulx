@@ -3,6 +3,7 @@ package com.pagoda.demo;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
+import com.pagoda.demo.entity.Singleton;
 import com.pagoda.demo.utii.RedisConfigurtion;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
@@ -28,6 +29,11 @@ public class SimpleWebApplicationTests {
     @Qualifier("initRedisTemplate")
     private RedisTemplate redisTemplate;
 
+    @Test
+    public void test3() {
+        //单例模式
+        Singleton.getInstance();
+    }
 
     @Test
     public void test0() {
