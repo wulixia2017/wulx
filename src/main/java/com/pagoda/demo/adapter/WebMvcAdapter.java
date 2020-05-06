@@ -1,5 +1,7 @@
 package com.pagoda.demo.adapter;
 
-public class WebMvcAdapter {
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+public class WebMvcAdapter extends WebMvcConfigurationSupport {
 
 }

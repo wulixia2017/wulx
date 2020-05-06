@@ -203,8 +203,12 @@ public class SimpleWebApplicationTests {
         List<Member> memberList = members.stream().filter(member -> member.getId()>1 || member.getNickName().contains("e")).collect(Collectors.toList());
         System.out.println("memberList:"+JSON.toJSONString(memberList));
         Function<Member,String> keyFunction =  member -> member.getNickName();
-        Map<String,Integer> map = members.stream().collect(Collectors.toMap(keyFunction,Member::getId));
-        members.stream().sorted(Comparator.comparing(member -> {return member.getId();}));
+        members.stream().sorted(Comparator.comparing((member) -> {return member.getId();}));
+
+        Map<Integer,Member> map1 = members.stream().filter((Member member)-> member.getId() > 2)
+                .sorted(Comparator.comparing(Member::getId))
+                .collect(Collectors.toMap((Member member)->{return member.getId();},(Member member)->{return member;}));
+        System.out.println("map1:"+JSON.toJSONString(map1));
     }
 
     @Test
