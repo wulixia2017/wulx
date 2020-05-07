@@ -19,6 +19,15 @@ public class Singleton {
         return singleton;
     }
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * 懒汉模式，线程不安全，Java反射机制是能够实例化构造方法为private的类的

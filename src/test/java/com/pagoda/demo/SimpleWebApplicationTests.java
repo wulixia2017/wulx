@@ -14,10 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -32,7 +29,16 @@ public class SimpleWebApplicationTests {
     @Test
     public void test3() {
         //单例模式
-        Singleton.getInstance();
+        Singleton singleton = Singleton.getInstance();
+        singleton.setName("name");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Singleton newSington = Singleton.getInstance();
+                System.out.println(Thread.currentThread().getName()+" newSington:  "+newSington.getName());
+            }
+        }).start();
+        System.out.println(Thread.currentThread().getName()+" singleton:  "+singleton.getName());
     }
 
     @Test
@@ -135,5 +141,12 @@ public class SimpleWebApplicationTests {
         System.out.println("strList:"+JSON.toJSONString(strList));
         List<String> aaList = stringList.stream().filter(x -> x.contains("t")).distinct().sorted().collect(Collectors.toList());
         System.out.println("aaList:"+JSON.toJSONString(aaList));
+    }
+
+    @Test
+    public void test6(){
+
+        Optional.of("aaa").orElseGet(()->"bbb");
+        Optional.ofNullable("aaa").orElse("bb");
     }
 }
