@@ -236,6 +236,12 @@ public class SimpleWebApplicationTests {
 
     @Test
     public void test6(){
+        Boolean a = null;
+        Boolean b = true;
+        Boolean bc = false;
+        System.out.println(Optional.ofNullable(a).orElse(false));
+        System.out.println(Optional.ofNullable(b).orElse(false));
+        System.out.println(Optional.ofNullable(bc).orElse(false));
 
         Optional.of("aaa").orElseGet(()->"bbb");
         Optional.ofNullable("aaa").orElse("bb");
