@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 统一封装api响应
  *
- * @author PagodaGenerator
+ * @author wulixiaGenerator
  */
 @ControllerAdvice("com.pagoda.demo")
 public class ApiResponseBodyAdvice implements ResponseBodyAdvice<Object> {
