@@ -15,4 +15,9 @@ public class ConstantUtil {
     public static int ONE_LEVEL = 1;
     public static int TWO_LEVEL = 2;
 
+
+    public static final String FIRST = "first";
+
+    public static final String SECOND = "second";
+
 }
