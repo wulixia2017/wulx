@@ -24,12 +24,14 @@ spring:
       url: jdbc:mysql://localhost:3306/wulx?characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: root
+
   redis:
     host: 127.0.0.1
 #    password: 123456
     port: 6379
 server:
   port: 8080
+
 #mybatis 配置信息
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml

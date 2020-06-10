@@ -20,8 +20,15 @@ import java.lang.reflect.Proxy;
  */
 public class JdkFunctionAutoProxy implements InvocationHandler {
 
+    /**
+     * 这个就是我们要代理的真实对象
+     */
     private Object target;
 
+    /**
+     * 构造方法，给我们要代理的真实对象赋初值
+     * @param target
+     */
     public JdkFunctionAutoProxy(Object target) {
         this.target = target;
     }
@@ -35,17 +42,42 @@ public class JdkFunctionAutoProxy implements InvocationHandler {
         return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
 
+    /**
+     * 该方法负责集中处理动态代理类上的所有方法调用
+     * 调用处理器根据这三个参数进行预处理或分派到委托类实例上反射执行
+     * @param proxy
+     * @param method
+     * @param args
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("auto proxy start");
+        System.out.println("auto proxy start1111");
         Object object = method.invoke(target, args);
-        System.out.println("auto proxy end");
+        System.out.println("auto proxy end1111");
         return object;
     }
 
     public static void main(String[] args)throws Exception {
-        // jdk动态代理测试
-        RealSubject subject = new JdkFunctionAutoProxy(new RealSubject()).getProxy();
+        //代理的真实对象
+        Subject realSubject = new RealSubject();
+
+        /**
+         * InvocationHandlerImpl 实现了 InvocationHandler 接口，并能实现方法调用从代理类到委托类的分派转发
+         * 其内部通常包含指向委托类实例的引用，用于真正执行分派转发过来的方法调用.
+         * 即：要代理哪个真实对象，就将该对象传进去，最后是通过该真实对象来调用其方法
+         */
+        InvocationHandler handler = new JdkFunctionAutoProxy(realSubject);
+        ClassLoader loader = realSubject.getClass().getClassLoader();
+        Class[] interfaces = realSubject.getClass().getInterfaces();
+        /**
+         * 该方法用于为指定类装载器、一组接口及调用处理器生成动态代理类实例
+         */
+        Subject subject = (Subject) Proxy.newProxyInstance(loader, interfaces, handler);
+
+        System.out.println("动态代理对象的类型："+subject.getClass().getName());
+
         subject.doSomeThing();
     }
 }

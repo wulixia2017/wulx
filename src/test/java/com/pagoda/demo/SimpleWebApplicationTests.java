@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
 import com.pagoda.demo.entity.Member;
 import com.pagoda.demo.entity.Singleton;
+import io.swagger.models.auth.In;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -284,4 +285,18 @@ public class SimpleWebApplicationTests {
         }
     }
 
+
+    @Test
+    public void test11(){
+        Integer i = Integer.MAX_VALUE;
+        int j = i;
+        System.out.println(j);
+    }
+
+    public static void main(String[] args) {
+        Integer i = Integer.MAX_VALUE;
+        int j = i;
+        System.out.println(j);
+
+    }
 }
