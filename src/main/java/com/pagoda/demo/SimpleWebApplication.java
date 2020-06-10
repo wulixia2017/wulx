@@ -7,6 +7,7 @@ import com.pagoda.demo.entity.Member;
 import com.pagoda.demo.framework.MemberBean;
 import com.pagoda.demo.service.Impl.FunctionServiceImpl;
 import com.pagoda.demo.service.Impl.MemberServiceImpl;
+import com.pagoda.demo.thread.LingYiThread;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -37,6 +38,11 @@ public class SimpleWebApplication {
 //        FunctionServiceImpl functionService = (FunctionServiceImpl)configurableApplicationContext.getBean("functionServiceImpl");
 //        List<Function> functionList = functionService.findFunctionList(new FunctionInput());
 //        System.out.println(JSON.toJSONString(functionList));
+//        LingYiThread lingYiThread = (LingYiThread)configurableApplicationContext.getBeanFactory().getBean("lingYiThread");
+//        lingYiThread.setCustomerID(1111);
+//        lingYiThread.run();
+//        new Thread(lingYiThread).start();
+//        System.out.println(Thread.currentThread().getName());
     }
 
 }

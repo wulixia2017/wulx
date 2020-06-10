@@ -1,6 +1,12 @@
 package com.pagoda.demo.interceptor;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.pagoda.demo.exception.BusinessException;
+import com.pagoda.demo.utii.ErrorCode;
+import com.pagoda.platform.service.ApiResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,7 +15,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Map;
 
 /**
@@ -35,15 +43,6 @@ public class TestFilter extends HandlerInterceptorAdapter {
      * @return
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        //判断是否有鉴权注解
-        HandlerMethod handlerMethod = (HandlerMethod)handler;
-        String methodName = handlerMethod.getMethod().getName();
-        System.out.println(methodName);
-        System.out.println(request.getMethod());
-        System.out.println(request.getHeader("aa"));
-        Object object = handlerMethod.getBean();
-        JSONObject jsonObject = JSONObject.parseObject(request.getInputStream(), JSONObject.class);
-        System.out.println(jsonObject);
         return true;
     }
 
@@ -58,7 +57,6 @@ public class TestFilter extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            @Nullable ModelAndView modelAndView) throws Exception {
-        modelAndView.setViewName("aaa");
 
     }
 
@@ -73,7 +71,6 @@ public class TestFilter extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 @Nullable Exception ex) throws Exception {
-        System.out.println(1111);
     }
 
 

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.function.*;
@@ -246,4 +248,40 @@ public class SimpleWebApplicationTests {
         Optional.of("aaa").orElseGet(()->"bbb");
         Optional.ofNullable("aaa").orElse("bb");
     }
+
+    @Test
+    public void test7(){
+        System.out.println(Integer.MAX_VALUE);
+//        String registerTime = "20201010102233";
+//        String onlineTime = "2020-10-10 10:22";
+//        String onlineTime1 = "2020-10-10 10:22:00";
+//        long register = convertLongTime(registerTime, DateUtils.DATETIME_SHORT_PATTERN);
+//        long online = convertLongTime(onlineTime, DateUtils.DATETIME_PATTERN_CREAT_ORDER);
+//        long online1 = convertLongTime(onlineTime1, DateUtils.DATETIME_PATTERN_CREAT_ORDER);
+//        System.out.println(register);
+//        System.out.println(online);
+//        System.out.println(online1);
+    }
+
+
+    public  Long convertLongTime(String time, String pattern) {
+        Date d = convertDate(time, pattern);
+        return d.getTime();
+    }
+
+    public Date convertDate(String date, String pattern) {
+        try {
+            if (!StringUtils.isEmpty(pattern) && !StringUtils.isEmpty(date)) {
+                SimpleDateFormat df = new SimpleDateFormat(pattern.trim());
+                return df.parse(date.trim());
+            } else {
+                String msg = "the date or pattern is empty.";
+                throw new IllegalArgumentException(msg);
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
 }
