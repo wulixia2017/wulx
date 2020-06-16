@@ -1,6 +1,7 @@
 package com.pagoda.demo;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
 import com.pagoda.demo.entity.Member;
@@ -294,9 +295,6 @@ public class SimpleWebApplicationTests {
     }
 
     public static void main(String[] args) {
-        Integer i = Integer.MAX_VALUE;
-        int j = i;
-        System.out.println(j);
 
     }
 }

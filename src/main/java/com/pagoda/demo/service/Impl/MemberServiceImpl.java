@@ -9,6 +9,7 @@ import com.pagoda.demo.service.IMemberService;
 import com.pagoda.demo.utii.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements IMemberService {
@@ -16,6 +17,7 @@ public class MemberServiceImpl implements IMemberService {
     @Autowired
     private MemberDao memberDao;
 
+    @Transactional
     @MyAnnot
     public Member getMember(int id){
         Member member = memberDao.getMember(id);
