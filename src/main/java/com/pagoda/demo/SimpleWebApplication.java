@@ -11,6 +11,7 @@ import com.pagoda.demo.framework.MemberBean;
 import com.pagoda.demo.service.IMemberService;
 import com.pagoda.demo.service.Impl.FunctionServiceImpl;
 import com.pagoda.demo.service.Impl.MemberServiceImpl;
+import com.pagoda.demo.thread.LingYiThread;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

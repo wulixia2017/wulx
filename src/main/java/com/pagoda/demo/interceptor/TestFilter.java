@@ -1,6 +1,12 @@
 package com.pagoda.demo.interceptor;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.pagoda.demo.exception.BusinessException;
+import com.pagoda.demo.utii.ErrorCode;
+import com.pagoda.platform.service.ApiResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,13 +15,15 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Map;
 
 /**
  * 拦截器最常用的登录拦截、或是权限校验、或是防重复提交
  * preHandle：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；
- * postHandle：在业务处理器处理请求执行完成后，生成视图之前执行。后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView （这个博主就基本不怎么用了）；
+ * postHandle：在业务处理器处理请求执行完成后，生成视图之前执行。后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView；
  * afterCompletion：在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面）；
  * ————————————————
  *
@@ -35,15 +43,6 @@ public class TestFilter extends HandlerInterceptorAdapter {
      * @return
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        //判断是否有鉴权注解
-        HandlerMethod handlerMethod = (HandlerMethod)handler;
-        String methodName = handlerMethod.getMethod().getName();
-        System.out.println(methodName);
-        System.out.println(request.getMethod());
-        System.out.println(request.getHeader("aa"));
-        Object object = handlerMethod.getBean();
-        JSONObject jsonObject = JSONObject.parseObject(request.getInputStream(), JSONObject.class);
-        System.out.println(jsonObject);
         return true;
     }
 
@@ -72,7 +71,6 @@ public class TestFilter extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 @Nullable Exception ex) throws Exception {
-        System.out.println(1111);
     }
 
 
