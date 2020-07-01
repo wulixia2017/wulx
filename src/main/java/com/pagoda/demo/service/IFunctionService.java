@@ -8,4 +8,8 @@ import java.util.List;
 public interface IFunctionService {
     List<Function> findFunctionList(FunctionInput function);
 
+    static String aa(){
+        return "";
+    }
+
 }

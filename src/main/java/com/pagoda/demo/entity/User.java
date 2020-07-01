@@ -2,11 +2,12 @@ package com.pagoda.demo.entity;
 
 import com.pagoda.demo.annotation.MyAnnot;
 import com.pagoda.demo.annotation.MyAnnotAge;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
-
+@Component
 public class User {
 
     private String name;

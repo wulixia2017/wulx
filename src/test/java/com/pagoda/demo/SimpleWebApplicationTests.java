@@ -3,9 +3,11 @@ package com.pagoda.demo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.pagoda.demo.entity.Keywordrecord;
 import com.pagoda.demo.entity.Member;
 import com.pagoda.demo.entity.Singleton;
+import com.pagoda.demo.entity.User;
 import io.swagger.models.auth.In;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
@@ -18,8 +20,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -218,6 +224,12 @@ public class SimpleWebApplicationTests {
                 .sorted(Comparator.comparing(Member::getId))
                 .collect(Collectors.toMap((Member member)->{return member.getId();},(Member member)->{return member;}));
         System.out.println("map1:"+JSON.toJSONString(map1));
+
+        Map<Integer,Member> map = members.stream().collect(Collectors.toMap(Member::getId,member -> member));
+        System.out.println("mappppppppppp:"+JSON.toJSONString(map));
+        List<Integer> idlist = members.stream().filter(member -> member.getId() > 2).map(Member::getId).collect(Collectors.toList());
+        System.out.println("idlisttttttttttttttt:"+JSON.toJSONString(idlist));
+
     }
 
     @Test
@@ -289,12 +301,34 @@ public class SimpleWebApplicationTests {
 
     @Test
     public void test11(){
-        Integer i = Integer.MAX_VALUE;
-        int j = i;
-        System.out.println(j);
+        Map<String, String> linkedMap = new LinkedHashMap();
+        linkedMap.put("111","2222");
+        linkedMap.put("22","2222");
+        linkedMap.put("33","2222");
+        linkedMap.put("44","2222");
+        System.out.println(JSON.toJSONString(linkedMap.keySet()));
+        System.out.println(linkedMap.get("22"));
+        System.out.println(JSON.toJSONString(linkedMap.keySet()));
+        Map<String, String> linkedMap1 = new LinkedHashMap(10,0.75f,true);
+        linkedMap1.put("111","2222");
+        linkedMap1.put("22","2222");
+        linkedMap1.put("33","2222");
+        System.out.println(JSON.toJSONString(linkedMap1.keySet()));
+        System.out.println(linkedMap1.get("22"));
+        System.out.println(JSON.toJSONString(linkedMap1.keySet()));
+        Map<String,String> hashMap = new HashMap<>();
+        System.out.println(hashMap.keySet());
+        linkedMap1.put("111","2222");
+        linkedMap1.put("22","2222");
+        linkedMap1.put("33","2222");
+        System.out.println(JSON.toJSONString(linkedMap1.keySet()));
+
+
     }
 
     public static void main(String[] args) {
-
+        System.out.println(LocalDate.now());
+        System.out.println(LocalTime.now());
+        System.out.println(LocalDateTime.now());
     }
 }
