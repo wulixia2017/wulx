@@ -1,9 +1,19 @@
 package com.pagoda.demo.entity;
 
 import com.pagoda.platform.dto.BaseEntity;
+import io.swagger.annotations.Scope;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 
-public class Function implements BaseEntity{
+@Component
+@Scope(name = "prototype",description = "prototype")
+public class Function implements BaseEntity,ApplicationContextAware,InitializingBean,DisposableBean {
     private int id;
     private String title;
     private String content;
@@ -13,6 +23,12 @@ public class Function implements BaseEntity{
     private Integer keyword;
     private String functionType;
     private int level;
+
+    public Function() {
+        System.out.println("construct==========================");
+    }
+
+    private ApplicationContext applicationContext;
 
     public int getLevel() {
         return level;
@@ -84,5 +100,28 @@ public class Function implements BaseEntity{
 
     public void setKeyword(Integer keyword) {
         this.keyword = keyword;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext arg) throws BeansException {
+        applicationContext = arg;
+        System.out.println("aware=======================");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("afterPropertiesSet=======================");
+        setId(1);
+        setTitle("李四");
+    }
+
+    @PostConstruct
+    public void initMethod() {
+        System.out.println("initMethod=======================");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("DisposableBean====================");
     }
 }

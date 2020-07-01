@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import com.pagoda.demo.dto.input.FunctionInput;
 import com.pagoda.demo.entity.Function;
 import com.pagoda.demo.entity.Keywordrecord;
+import com.pagoda.demo.entity.TestBean;
+import com.pagoda.demo.entity.User;
 import com.pagoda.demo.service.IKeywordrecordService;
 import com.pagoda.demo.proxy.FunctionProxy;
 import com.pagoda.demo.service.Impl.FunctionServiceImpl;

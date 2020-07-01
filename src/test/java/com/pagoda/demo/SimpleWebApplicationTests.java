@@ -9,6 +9,7 @@ import com.pagoda.demo.entity.Member;
 import com.pagoda.demo.entity.Singleton;
 import com.pagoda.demo.entity.User;
 import io.swagger.models.auth.In;
+import com.pagoda.demo.framework.TranscationSync;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.util.StringUtils;
+import sun.misc.ProxyGenerator;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -326,7 +330,21 @@ public class SimpleWebApplicationTests {
 
     }
 
-    public static void main(String[] args) {
+    /**
+     * 生成代理类文件
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        final byte[] $proxymemberServiceImpls = ProxyGenerator.generateProxyClass("$TestCglib111", new Class[]{com.pagoda.demo.entity.Function.class});
+        FileOutputStream output = new FileOutputStream("C:\\Users\\16254\\Desktop\\面试\\TestCglib111.class");
+        output.write($proxymemberServiceImpls);
+        output.flush();
+        output.close();
+    }
+
+
+    public static void test(String[] args) {
         System.out.println(LocalDate.now());
         System.out.println(LocalTime.now());
         System.out.println(LocalDateTime.now());

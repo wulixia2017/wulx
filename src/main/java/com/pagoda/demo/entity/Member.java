@@ -9,6 +9,10 @@ public class Member implements BaseEntity{
     private String age;
     private String picUrl;
 
+    public Member() {
+        System.out.println("Construct member===============");
+    }
+
     public int getId() {
         return id;
     }
