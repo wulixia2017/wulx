@@ -14,6 +14,6 @@ public class Badvice{
 
     @Before("pointcut()")
     public void before() {
-        System.out.println("before");
+        System.out.println("before MyAnnot====================");
     }
 }

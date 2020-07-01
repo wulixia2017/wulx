@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.pagoda.demo.entity.Keywordrecord;
 import com.pagoda.demo.entity.Member;
 import com.pagoda.demo.entity.Singleton;
-import io.swagger.models.auth.In;
+import com.pagoda.demo.framework.TranscationSync;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.support.TransactionCallback;
+import sun.misc.ProxyGenerator;
 
+import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.function.*;
@@ -250,15 +253,20 @@ public class SimpleWebApplicationTests {
 
     @Test
     public void test11(){
-        Integer i = Integer.MAX_VALUE;
-        int j = i;
-        System.out.println(j);
+        Set set = new HashSet();
+        set.add(111);
     }
 
-    public static void main(String[] args) {
-        Integer i = Integer.MAX_VALUE;
-        int j = i;
-        System.out.println(j);
-
+    /**
+     * 生成代理类文件
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        final byte[] $proxymemberServiceImpls = ProxyGenerator.generateProxyClass("$TestCglib111", new Class[]{com.pagoda.demo.entity.Function.class});
+        FileOutputStream output = new FileOutputStream("C:\\Users\\16254\\Desktop\\面试\\TestCglib111.class");
+        output.write($proxymemberServiceImpls);
+        output.flush();
+        output.close();
     }
 }

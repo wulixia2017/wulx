@@ -19,4 +19,10 @@ public class MemberServiceImpl implements IMemberService {
         Member member = memberDao.getMember(id);
         return member;
     }
+
+    public Member get(int id){
+        Member member = memberDao.getMember(id);
+        this.getMember(id);
+        return member;
+    }
 }
