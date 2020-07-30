@@ -448,4 +448,9 @@ public class SimpleWebApplicationTests {
         System.out.println("11111111111111111");
         System.out.println(clazz.getFields());
     }
+
+    @Test
+    public void test23(){
+        System.out.println("测试合代码回滚");
+    }
 }
