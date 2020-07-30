@@ -453,4 +453,10 @@ public class SimpleWebApplicationTests {
     public void test23(){
         System.out.println("测试合代码回滚");
     }
+
+
+    @Test
+    public void test24(){
+        System.out.println("测试合代码回滚111111");
+    }
 }
