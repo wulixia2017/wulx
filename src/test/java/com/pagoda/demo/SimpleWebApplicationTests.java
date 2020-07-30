@@ -13,6 +13,9 @@ import com.pagoda.demo.framework.TranscationSync;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,9 +30,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
@@ -348,5 +355,97 @@ public class SimpleWebApplicationTests {
         System.out.println(LocalDate.now());
         System.out.println(LocalTime.now());
         System.out.println(LocalDateTime.now());
+    }
+
+
+    @Test
+    public void test12(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized ("a"){
+                    System.out.println("start a");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    synchronized ("b"){
+                        System.out.println("start bb");
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized ("b"){
+                    System.out.println("start b");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    synchronized ("a"){
+                        System.out.println("start aa");
+                    }
+                }
+            }
+        }).start();
+
+        List<String> list = Lists.newArrayList();
+        while (true){
+            int i = 0;
+            String aa = new String("aa"+i);
+            i++;
+            list.add(aa);
+        }
+    }
+
+
+
+    @Test
+    public void test19(){
+        //查询用户创建时间
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime validTime = LocalDateTime.parse("2020-07-17 19:00:46",df).plusDays(7);
+        System.out.println(validTime+"  "+"2020-07-17 19:00:46");
+        if (validTime.isAfter(LocalDateTime.now())){
+            System.out.println(111111111);
+        }else{
+            System.out.println(222222222);
+        }
+    }
+
+    @Test
+    public void test20(){
+        RedissonClient client = Redisson.create();
+        RLock rLock = client.getLock("AAA");
+        rLock.lock(10000, TimeUnit.MILLISECONDS);
+        System.out.println("lock require"+System.currentTimeMillis());
+        rLock.unlock();
+    }
+
+    @Test
+    public void test21(){
+        Lock lock = new ReentrantLock();
+        lock.lock();
+        try {
+            lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    }
+
+
+    @Test
+    public void test22() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Class clazz = Class.forName("com.pagoda.demo.entity.Member");
+        Member member = (Member) clazz.newInstance();
+        System.out.println("11111111111111111");
+        System.out.println(clazz.getFields());
     }
 }

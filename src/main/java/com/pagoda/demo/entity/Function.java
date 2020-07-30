@@ -22,7 +22,7 @@ public class Function implements BaseEntity,ApplicationContextAware,Initializing
     private String action;
     private Integer keyword;
     private String functionType;
-    private int level;
+    private Integer level;
 
     public Function() {
         System.out.println("construct==========================");

@@ -8,6 +8,15 @@ public class Member implements BaseEntity{
     private String nickName;
     private String age;
     private String picUrl;
+    private Function function;
+
+    public Function getFunction() {
+        return function;
+    }
+
+    public void setFunction(Function function) {
+        this.function = function;
+    }
 
     public Member() {
         System.out.println("Construct member===============");
