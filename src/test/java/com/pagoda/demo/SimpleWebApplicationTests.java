@@ -459,4 +459,10 @@ public class SimpleWebApplicationTests {
     public void test24(){
         System.out.println("测试合代码回滚111111");
     }
+
+
+    @Test
+    public void test25(){
+        System.out.println("冲突");
+    }
 }
